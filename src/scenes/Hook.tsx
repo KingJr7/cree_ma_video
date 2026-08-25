@@ -22,7 +22,7 @@ export const Hook: React.FC<{ duration: number }> = ({ duration }) => {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const balance = Math.round(1280 + (37 - 1280) * drain);
+  const balance = Math.round(37 + (1280 - 37) * drain);
   const barW = interpolate(drain, [0, 1], [0.06, 1]);
 
   return (

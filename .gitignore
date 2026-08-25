@@ -2,3 +2,9 @@ node_modules/
 out/
 public/sfx/
 .remotion/
+.env
+frames/
+mp4_frames/
+*.mp4
+*.wav
+publish/

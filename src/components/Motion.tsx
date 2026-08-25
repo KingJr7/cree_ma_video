@@ -146,7 +146,12 @@ export const PunchIn: React.FC<{
   const scale = interpolate(s, [0, 1], [1, amount]);
   return (
     <div
-      style={{ transform: `scale(${scale})`, transformOrigin: "50% 45%" }}
+      style={{
+        width: "100%",
+        height: "100%",
+        transform: `scale(${scale})`,
+        transformOrigin: "50% 45%",
+      }}
     >
       {children}
     </div>
