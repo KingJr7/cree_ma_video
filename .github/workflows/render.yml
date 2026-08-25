@@ -1,0 +1,72 @@
+name: render
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: render-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Synthesize audio
+        run: npm run audio
+
+      # QC : stills aux moments clés (hook / intro / beats / payoff / cta / fin)
+      - name: Render QC stills
+        run: |
+          mkdir -p out/frames
+          for fr in 10 45 120 200 260 350 410 500 560 640 700 770 820 899; do
+            npx remotion still src/index.ts Regle503020 out/frames/f$fr.png --frame $fr --overwrite
+          done
+
+      - name: Render MP4
+        run: npx remotion render src/index.ts Regle503020 out/regle-503020.mp4 --codec h264 --crf 16
+
+      - name: Probe encode
+        run: |
+          ffprobe -v error -select_streams v:0 \
+            -show_entries stream=width,height,r_frame_rate,duration -of csv=p=0 out/regle-503020.mp4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: out/
+          retention-days: 30
+
+      # Livrable durable : branche `renders`, force-push à chaque rendu
+      - name: Publish to renders branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          rm -rf publish && mkdir publish
+          cp out/regle-503020.mp4 publish/
+          cp -r out/frames publish/
+          cd publish
+          git init -b renders
+          git config user.name "render-bot"
+          git config user.email "actions@github.com"
+          git remote add origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add -A
+          git commit -m "render: ${GITHUB_SHA}"
+          git push -f origin renders
