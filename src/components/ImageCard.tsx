@@ -10,9 +10,8 @@ export const ImageCard: React.FC<{
   duration: number; // frame absolue de fin (pour la sortie)
   from: number; // frame absolue où la carte apparaît
   zoom?: number;
-  side?: -1 | 1; // décalage horizontal asymétrique (chevauchement)
-  lift?: number; // décalage vertical négatif (px)
-}> = ({ src, duration, from, zoom = 1.1, side = 1, lift = 0 }) => {
+  lift?: number; // décalage vertical (px, - = plus haut)
+}> = ({ src, duration, from, zoom = 1.1, lift = 0 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -22,9 +21,8 @@ export const ImageCard: React.FC<{
     fps,
     config: theme.spring.bouncy,
   });
-  const enterY = interpolate(enter, [0, 1], [150, 0]);
-  const enterX = interpolate(enter, [0, 1], [90 * side, 0]);
-  const enterScale = interpolate(enter, [0, 1], [0.86, 1]);
+  const enterY = interpolate(enter, [0, 1], [160, 0]);
+  const enterScale = interpolate(enter, [0, 1], [0.84, 1]);
 
   // respiration
   const breathe = 1 + Math.sin(frame / 30) * 0.012;
@@ -45,21 +43,20 @@ export const ImageCard: React.FC<{
     extrapolateRight: "clamp",
   });
   const kbScale = 1 + (zoom - 1) * kb;
-  const kbPan = interpolate(kb, [0, 1], [0, -26 * side]);
+  const kbPan = interpolate(kb, [0, 1], [0, -34]);
 
   return (
     <div
       style={{
         position: "absolute",
         left: "50%",
-        top: "46%",
-        width: 400,
-        height: 520,
-        marginLeft: side * 170,
+        top: "45%",
+        width: 520,
+        height: 700,
         marginTop: lift,
         opacity: exitO * enter,
-        transform: `translate(-50%,-50%) translate(${enterX}px, ${enterY + exitY}px) scale(${enterScale * breathe})`,
-        borderRadius: 60,
+        transform: `translate(-50%,-50%) translate(0px, ${enterY + exitY}px) scale(${enterScale * breathe})`,
+        borderRadius: 64,
         overflow: "hidden",
         border: `1px solid rgba(247,242,234,0.16)`,
         boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), 0 40px 80px -30px rgba(0,0,0,0.75)`,

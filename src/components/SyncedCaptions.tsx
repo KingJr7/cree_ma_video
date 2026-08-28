@@ -22,7 +22,7 @@ export const SyncedCaptions: React.FC = () => {
         position: "absolute",
         left: 0,
         right: 0,
-        top: "62%",
+        top: "66%",
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "center",

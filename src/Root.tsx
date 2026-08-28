@@ -106,8 +106,6 @@ const VoixVideo: React.FC = () => {
               from={card.from}
               duration={card.from + card.duration}
               zoom={card.zoom}
-              side={card.side}
-              lift={i === 0 ? 30 : -130}
             />
           ))}
         </AbsoluteFill>
