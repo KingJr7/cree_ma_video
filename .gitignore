@@ -6,5 +6,9 @@ public/sfx/
 frames/
 mp4_frames/
 *.mp4
-*.wav
 publish/
+
+# voix off source à la racine (celle fournie par l'utilisateur)
+/audio_voix.wav
+# mais on commit celle copiée dans public/ pour le rendu
+!/public/audio_voix.wav

@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "lib": ["DOM", "ES2022"],
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
     "noEmit": true
   },
   "include": ["src"]

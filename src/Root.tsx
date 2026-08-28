@@ -1,95 +1,62 @@
 import React from "react";
-import { AbsoluteFill, Composition, Sequence } from "remotion";
+import { AbsoluteFill, Audio, Composition, Sequence, staticFile } from "remotion";
 import { loadFont as loadDisplay } from "@remotion/google-fonts/SpaceGrotesk";
 import { loadFont as loadMono } from "@remotion/google-fonts/JetBrainsMono";
 import { BgMesh, Grade, Grain, Vignette } from "./components/Layers";
-import { SoundTrack, FPS } from "./audio";
+import { Scene } from "./scenes/Scene";
+import { CTA } from "./scenes/CTA";
+import { SnareFx, FPS } from "./audio";
 import { theme } from "./theme";
-import { Hook, HOOK_S } from "./scenes/Hook";
-import { RuleIntro, INTRO_S } from "./scenes/RuleIntro";
-import { Beat, BEAT_S, type BeatData } from "./scenes/Beat";
-import type { Segment } from "./components/Donut";
-import { Payoff, PAYOFF_S } from "./scenes/Payoff";
-import { CTA, CTA_S } from "./scenes/CTA";
 
 loadDisplay();
 loadMono();
 
 const f = (s: number) => Math.round(FPS * s);
 
-// Segments du donut — les couleurs portent la règle.
-const SEG_50: Segment = { pct: 50, color: theme.colors.cream, startPct: 0 };
-const SEG_30: Segment = { pct: 30, color: theme.colors.primary, startPct: 50 };
-const SEG_20: Segment = { pct: 20, color: theme.colors.accent, startPct: 80 };
+// Coupes de scènes sur la grille de beats (multiples de 15) — VO de 22,14 s,
+// vidéo de 30 s. Les captions restent synchro via les timestamps.
+const SCENES = {
+  hook: f(3.5), // 0.0 – 3.5  : hook (porte / logeur)
+  justice: f(6.5), // 3.5 – 10   : la loi / tribunal / justice
+  eau: f(6.0), // 10   – 16   : couper l'eau / l'électricité
+  serrures: f(4.0), // 16   – 20   : changer les serrures / faute
+  cta: f(10.0), // 20   – 30   : normal ou abusé ? + CTA
+};
+const TOTAL_F = Object.values(SCENES).reduce((a, b) => a + b, 0); // 900
 
-const BEAT_50: BeatData = {
-  pct: 50,
-  label: "Besoins",
-  color: theme.colors.cream,
-  examples: ["Loyer & courses", "Factures", "Transport"],
-};
-const BEAT_30: BeatData = {
-  pct: 30,
-  label: "Envies",
-  color: theme.colors.primary,
-  examples: ["Restos & sorties", "Abonnements", "Plaisirs"],
-};
-const BEAT_20: BeatData = {
-  pct: 20,
-  label: "Épargne",
-  color: theme.colors.accent,
-  examples: ["Virement auto", "Jour de paie", "Objectifs"],
-};
-
-const SCENE_F = {
-  hook: f(HOOK_S), // 90
-  intro: f(INTRO_S), // 60
-  b1: f(BEAT_S), // 150
-  b2: f(BEAT_S),
-  b3: f(BEAT_S),
-  payoff: f(PAYOFF_S), // 195
-  cta: f(CTA_S), // 105
-};
-const TOTAL_F = Object.values(SCENE_F).reduce((a, b) => a + b, 0); // 900
-
-const Regle503020: React.FC = () => {
-  const s = SCENE_F;
+const VoixVideo: React.FC = () => {
+  const s = SCENES;
   return (
     <AbsoluteFill style={{ background: theme.colors.bg }}>
-      {/* couche 1 : mesh */}
+      {/* couche 1 : mesh (visible entre les images / fin de boucle) */}
       <BgMesh />
-      {/* couches 2–3 : contenu */}
+
+      {/* couches 2–3 : scènes, chacune porte son image + ses captions */}
       <Sequence durationInFrames={s.hook}>
-        <Hook duration={s.hook} />
+        <Scene duration={s.hook} src="images/hook_door.jpeg" kicker="Congo · droit du logement" zoomTo={1.12} />
       </Sequence>
-      <Sequence from={s.hook} durationInFrames={s.intro}>
-        <RuleIntro duration={s.intro} />
+      <Sequence from={s.hook} durationInFrames={s.justice}>
+        <Scene duration={s.justice} src="images/court.jpeg" kicker="Une décision de justice" zoomTo={1.06} />
       </Sequence>
-      <Sequence from={s.hook + s.intro} durationInFrames={s.b1}>
-        <Beat duration={s.b1} data={BEAT_50} laid={[]} />
+      <Sequence from={s.hook + s.justice} durationInFrames={s.eau}>
+        <Scene duration={s.eau} src="images/water.jpeg" kicker="Eau · électricité" zoomTo={1.1} />
       </Sequence>
-      <Sequence from={s.hook + s.intro + s.b1} durationInFrames={s.b2}>
-        <Beat duration={s.b2} data={BEAT_30} laid={[SEG_50]} />
-      </Sequence>
-      <Sequence from={s.hook + s.intro + s.b1 + s.b2} durationInFrames={s.b3}>
-        <Beat duration={s.b3} data={BEAT_20} laid={[SEG_50, SEG_30]} />
+      <Sequence from={s.hook + s.justice + s.eau} durationInFrames={s.serrures}>
+        <Scene duration={s.serrures} src="images/lock.jpeg" kicker="Serrures · faute" zoomTo={1.06} />
       </Sequence>
       <Sequence
-        from={s.hook + s.intro + s.b1 + s.b2 + s.b3}
-        durationInFrames={s.payoff}
-      >
-        <Payoff duration={s.payoff} />
-      </Sequence>
-      <Sequence
-        from={
-          s.hook + s.intro + s.b1 + s.b2 + s.b3 + s.payoff
-        }
+        from={s.hook + s.justice + s.eau + s.serrures}
         durationInFrames={s.cta}
       >
         <CTA duration={s.cta} />
       </Sequence>
-      {/* audio : nappe + SFX synchronisés */}
-      <SoundTrack />
+
+      {/* voix off */}
+      <Audio src={staticFile("audio_voix.wav")} volume={0.95} />
+
+      {/* SFX + nappe musicale (ducke sous la voix) */}
+      <SnareFx />
+
       {/* couches 4–5 : grade, grain + vignette */}
       <Grade />
       <Grain />
@@ -100,8 +67,8 @@ const Regle503020: React.FC = () => {
 
 export const Root: React.FC = () => (
   <Composition
-    id="Regle503020"
-    component={Regle503020}
+    id="VoixVideo"
+    component={VoixVideo}
     durationInFrames={TOTAL_F}
     fps={FPS}
     width={1080}

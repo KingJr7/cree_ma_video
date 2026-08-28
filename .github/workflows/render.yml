@@ -30,16 +30,9 @@ jobs:
       - name: Synthesize audio
         run: npm run audio
 
-      # QC : stills aux moments clés (hook / intro / beats / payoff / cta / fin)
-      - name: Render QC stills
-        run: |
-          mkdir -p out/frames
-          for fr in 10 45 120 200 260 350 410 500 560 640 700 770 820 899; do
-            npx remotion still src/index.ts Regle503020 out/frames/f$fr.png --frame $fr --overwrite
-          done
-
+      # Rendu direct du MP4 — pas de stills de vérification.
       - name: Render MP4
-        run: npx remotion render src/index.ts Regle503020 out/regle-503020.mp4 --codec h264 --crf 16
+        run: npx remotion render src/index.ts VoixVideo out/droit-logement-congo.mp4 --codec h264 --crf 16
 
       # Livrable durable : branche `renders`, force-push à chaque rendu
       - name: Publish to renders branch
@@ -48,8 +41,7 @@ jobs:
         run: |
           set -e
           rm -rf publish && mkdir publish
-          cp out/regle-503020.mp4 publish/
-          cp -r out/frames publish/
+          cp out/droit-logement-congo.mp4 publish/
           cd publish
           git init -b renders
           git config user.name "render-bot"
@@ -66,7 +58,7 @@ jobs:
           path: out/
           retention-days: 30
 
-      # Vérif de l'encodage : ffprobe absent des images récentes -> installer.
+      # Vérif légère de l'encodage (pas de stills d'inspection).
       - name: Verify encode
         run: |
           set -e
@@ -74,9 +66,5 @@ jobs:
             sudo apt-get update -qq
             sudo apt-get install -y -qq ffmpeg
           fi
-          ffprobe -v error -select_streams v:0 \
-            -show_entries stream=width,height,r_frame_rate,duration \
-            -of csv=p=0 out/regle-503020.mp4
-          mkdir -p out/mp4_frames
-          ffmpeg -v error -ss 1.5 -i out/regle-503020.mp4 -frames:v 1 out/mp4_checks_1.png -y
-          ffmpeg -v error -ss 23.0 -i out/regle-503020.mp4 -frames:v 1 out/mp4_checks_23.png -y
+          ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate,codec_name \
+            -of json out/droit-logement-congo.mp4
