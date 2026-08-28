@@ -2,7 +2,7 @@ import React from "react";
 import { Audio, Sequence, staticFile } from "remotion";
 
 export const FPS = 30;
-const CUTS = [105, 300, 480, 600]; // débuts de scènes (frame)
+const CUTS = [127, 227, 367, 472, 548, 604, 677]; // transitions de chapitres + end-card (frame)
 
 // Nappe musicale + SFX très discrets, duckés sous la voix off.
 export const SnareFx: React.FC = () => (
