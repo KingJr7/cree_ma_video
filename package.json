@@ -4,8 +4,9 @@
   "private": true,
   "description": "TikTok 30s vertical - La regle 50/30/20 (Remotion motion graphics)",
   "scripts": {
-    "audio": "node scripts/gen-sfx.mjs && node scripts/gen-track.mjs",
-    "render": "remotion render src/index.ts VoixVideo out/droit-logement-congo.mp4 --codec h264 --crf 16 --overwrite"
+    "audio": "node scripts/gen-sfx.mjs && node scripts/gen-track.mjs && node scripts/gen-amapiano.mjs",
+    "render-congo": "remotion render src/index.ts VoixVideo out/droit-logement-congo.mp4 --codec h264 --crf 16 --overwrite",
+    "render-deuxnous": "remotion render src/index.ts Deuxnous out/deuxnous-launch.mp4 --codec h264 --crf 16 --overwrite"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",
