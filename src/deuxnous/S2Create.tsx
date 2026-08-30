@@ -23,8 +23,8 @@ export const S2Create: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const phoneIn = spring({ frame, fps, config: theme.spring.bouncy });
-  const phoneSlide = interpolate(phoneIn, [0, 1], [80, 0]);
+  const phoneIn = spring({ frame, fps, config: theme.spring.punch });
+  const phoneSlide = interpolate(phoneIn, [0, 1], [100, 0]);
 
   // Typing : on tape "Jean" (champ 1) entre f=30..50, puis "& Sarah" (champ 2) entre f=50..78
   const t1 = interpolate(frame, [30, 50], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -33,7 +33,7 @@ export const S2Create: React.FC = () => {
   const v2 = typeText("& Sarah", t2);
 
   // Bouton : apparaît à 78
-  const btnP = spring({ frame: frame - 78, fps, config: theme.spring.bouncy });
+  const btnP = spring({ frame: frame - 78, fps, config: theme.spring.snap });
 
   // Click ripple : 88–104
   const ripple = interpolate(frame, [88, 104], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -42,11 +42,11 @@ export const S2Create: React.FC = () => {
   // Transition vers l'état "QR + lien" : 100–130
   const trans = interpolate(frame, [100, 130], [0, 1], { easing: Easing.inOut(Easing.bezier(0.83, 0, 0.17, 1)), extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const formO = 1 - trans;
-  const successP = spring({ frame: frame - 118, fps, config: theme.spring.bouncy });
-  const qrP = spring({ frame: frame - 124, fps, config: theme.spring.smooth });
+  const successP = spring({ frame: frame - 118, fps, config: theme.spring.punch });
+  const qrP = spring({ frame: frame - 124, fps, config: theme.spring.snap });
 
   // Tagline
-  const tagP = spring({ frame: frame - 150, fps, config: theme.spring.smooth });
+  const tagP = spring({ frame: frame - 150, fps, config: theme.spring.snap });
 
   return (
     <AbsoluteFill style={{ background: theme.colors.bg }}>
@@ -65,15 +65,15 @@ export const S2Create: React.FC = () => {
         style={{
           position: "absolute",
           left: 80,
-          top: 70,
-          opacity: spring({ frame, fps, config: theme.spring.smooth }),
-          transform: `translateX(${interpolate(spring({ frame, fps, config: theme.spring.smooth }), [0, 1], [-20, 0])}px)`,
+          top: 80,
+          opacity: spring({ frame, fps, config: theme.spring.snap }),
+          transform: `translateX(${interpolate(spring({ frame, fps, config: theme.spring.snap }), [0, 1], [-30, 0])}px)`,
         }}
       >
-        <div style={{ fontFamily: theme.fonts.body, fontSize: 24, color: theme.colors.lavender, letterSpacing: "0.18em", textTransform: "uppercase" }}>
+        <div style={{ fontFamily: theme.fonts.body, fontSize: 30, color: theme.colors.lavender, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>
           Pour les mariés
         </div>
-        <div style={{ fontFamily: theme.fonts.display, fontSize: 84, color: theme.colors.onyx, letterSpacing: "-0.03em", lineHeight: 1.05, marginTop: 8 }}>
+        <div style={{ fontFamily: theme.fonts.display, fontSize: 120, color: theme.colors.onyx, letterSpacing: "-0.03em", lineHeight: 1.02, marginTop: 14, fontWeight: 700 }}>
           Créez en <span style={{ color: theme.colors.lavender }}>3 minutes</span>.
         </div>
       </div>
@@ -100,32 +100,32 @@ export const S2Create: React.FC = () => {
             }}
           >
             {/* Header (constant) */}
-            <div style={{ padding: `14px ${PHONE_W * 0.06}px`, display: "flex", alignItems: "center", gap: 8 }}>
-              <div style={{ transform: "scale(0.18)", transformOrigin: "left center" }}>
+            <div style={{ padding: `16px ${PHONE_W * 0.06}px`, display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ transform: "scale(0.2)", transformOrigin: "left center" }}>
                 <Logo size={PHONE_W} />
               </div>
-              <div style={{ fontFamily: theme.fonts.display, fontSize: 22, color: theme.colors.onyx, fontWeight: 700, marginLeft: -8 }}>
+              <div style={{ fontFamily: theme.fonts.display, fontSize: 28, color: theme.colors.onyx, fontWeight: 700, marginLeft: -10 }}>
                 Deux<span style={{ color: theme.colors.lavender }}>nous</span>
               </div>
             </div>
 
             {/* Form (fade-out après 100) */}
             <div style={{ padding: `0 ${PHONE_W * 0.07}px`, opacity: formO }}>
-              <div style={{ fontFamily: theme.fonts.display, fontSize: 28, color: theme.colors.onyx, fontWeight: 700, marginBottom: 4 }}>
+              <div style={{ fontFamily: theme.fonts.display, fontSize: 36, color: theme.colors.onyx, fontWeight: 700, marginBottom: 6 }}>
                 Créez votre espace
               </div>
-              <div style={{ fontFamily: theme.fonts.body, fontSize: 14, color: theme.colors.onyxSoft, marginBottom: 22 }}>
+              <div style={{ fontFamily: theme.fonts.body, fontSize: 18, color: theme.colors.onyxSoft, marginBottom: 26 }}>
                 On vous guide, étape par étape.
               </div>
 
-              <Field value={v1} placeholder="Prénom du marié" width={PHONE_W * 0.86} caret={t1 < 1} fontSize={18} />
-              <div style={{ height: 14 }} />
-              <Field value={v2} placeholder="Prénom de la mariée" width={PHONE_W * 0.86} caret={t2 < 1 && frame < 78} fontSize={18} />
+              <Field value={v1} placeholder="Prénom du marié" width={PHONE_W * 0.86} caret={t1 < 1} fontSize={22} />
+              <div style={{ height: 16 }} />
+              <Field value={v2} placeholder="Prénom de la mariée" width={PHONE_W * 0.86} caret={t2 < 1 && frame < 78} fontSize={22} />
 
-              <div style={{ height: 22 }} />
+              <div style={{ height: 26 }} />
               <div style={{ position: "relative" }}>
-                <div style={{ opacity: btnP, transform: `translateY(${interpolate(btnP, [0, 1], [16, 0])}px) scale(${interpolate(btnP, [0, 1], [0.96, 1])})` }}>
-                  <OnyxButton width={PHONE_W * 0.86} height={56} style={{ fontSize: 20 }}>
+                <div style={{ opacity: btnP, transform: `translateY(${interpolate(btnP, [0, 1], [16, 0])}px) scale(${interpolate(btnP, [0, 1], [0.94, 1])})` }}>
+                  <OnyxButton width={PHONE_W * 0.86} height={64} style={{ fontSize: 24 }}>
                     Publier mon espace
                   </OnyxButton>
                 </div>
@@ -134,27 +134,27 @@ export const S2Create: React.FC = () => {
                     style={{
                       position: "absolute",
                       left: "50%",
-                      top: 28,
+                      top: 32,
                       transform: "translate(-50%, -50%)",
-                      width: 90 * ripple,
-                      height: 90 * ripple,
+                      width: 110 * ripple,
+                      height: 110 * ripple,
                       borderRadius: "50%",
-                      border: `3px solid ${theme.colors.lavender}`,
+                      border: `4px solid ${theme.colors.lavender}`,
                       opacity: (1 - ripple) * 1.4,
                     }}
                   />
                 ) : null}
                 {frame >= 88 && frame <= 100 ? (
                   <div style={{ position: "absolute", left: "50%", top: 0, transform: "translate(-50%, 0)", opacity: clickO }}>
-                    <CursorIcon size={32} color={theme.colors.onyx} />
+                    <CursorIcon size={40} color={theme.colors.onyx} />
                   </div>
                 ) : null}
               </div>
 
-              <div style={{ height: 18, opacity: btnP }} />
+              <div style={{ height: 20, opacity: btnP }} />
               <div style={{ opacity: btnP * 0.6 }}>
-                <GhostButton width={PHONE_W * 0.86} height={48}>
-                  <span style={{ fontSize: 16 }}>+ Inviter un co-organisateur</span>
+                <GhostButton width={PHONE_W * 0.86} height={52}>
+                  <span style={{ fontSize: 19 }}>+ Inviter un co-organisateur</span>
                 </GhostButton>
               </div>
             </div>
@@ -174,42 +174,42 @@ export const S2Create: React.FC = () => {
               <div
                 style={{
                   fontFamily: theme.fonts.display,
-                  fontSize: 22,
+                  fontSize: 28,
                   fontWeight: 700,
                   color: theme.colors.onyx,
-                  marginBottom: 2,
+                  marginBottom: 4,
                   opacity: qrP,
                 }}
               >
                 Votre espace est <span style={{ color: theme.colors.mint }}>en ligne</span>{" "}
                 <span style={{ display: "inline-block", transform: "translateY(4px)" }}>
-                  <CheckIcon size={20} />
+                  <CheckIcon size={24} />
                 </span>
               </div>
               <div
                 style={{
                   fontFamily: theme.fonts.body,
-                  fontSize: 13,
+                  fontSize: 16,
                   color: theme.colors.onyxSoft,
-                  marginBottom: 14,
+                  marginBottom: 18,
                   opacity: qrP,
                 }}
               >
                 Partagez le QR ou le lien à vos invités.
               </div>
-              <div style={{ transform: `scale(${interpolate(qrP, [0, 1], [0.7, 1])})` }}>
-                <QRCode seed="deuxnous-jean-sarah" size={200} />
+              <div style={{ transform: `scale(${interpolate(qrP, [0, 1], [0.6, 1])})` }}>
+                <QRCode seed="deuxnous-jean-sarah" size={240} />
               </div>
               <div
                 style={{
-                  marginTop: 14,
-                  padding: "8px 14px",
+                  marginTop: 18,
+                  padding: "12px 18px",
                   borderRadius: 999,
                   background: theme.colors.lavenderWash,
                   color: theme.colors.lavender,
                   fontFamily: theme.fonts.body,
-                  fontSize: 14,
-                  fontWeight: 600,
+                  fontSize: 18,
+                  fontWeight: 700,
                   opacity: qrP,
                 }}
               >
@@ -226,19 +226,19 @@ export const S2Create: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          right: 80,
-          bottom: 90,
-          maxWidth: 540,
+          right: 100,
+          bottom: 110,
+          maxWidth: 600,
           textAlign: "right",
           opacity: tagP,
-          transform: `translateY(${interpolate(tagP, [0, 1], [20, 0])}px)`,
+          transform: `translateY(${interpolate(tagP, [0, 1], [30, 0])}px)`,
         }}
       >
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "10px 18px", borderRadius: 999, background: theme.colors.lavenderWash, color: theme.colors.lavender, fontFamily: theme.fonts.body, fontWeight: 700, fontSize: 22, letterSpacing: "-0.01em" }}>
-          <HeartIcon size={22} />
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "16px 28px", borderRadius: 999, background: theme.colors.lavenderWash, color: theme.colors.lavender, fontFamily: theme.fonts.body, fontWeight: 800, fontSize: 32, letterSpacing: "-0.01em" }}>
+          <HeartIcon size={32} />
           Prêt à partager.
         </div>
-        <div style={{ fontFamily: theme.fonts.body, fontSize: 24, color: theme.colors.onyxSoft, marginTop: 14, lineHeight: 1.3 }}>
+        <div style={{ fontFamily: theme.fonts.body, fontSize: 32, color: theme.colors.onyxSoft, marginTop: 18, lineHeight: 1.25, fontWeight: 500 }}>
           Un lien. Un QR. Et toute la famille synchronisée.
         </div>
       </div>

@@ -20,15 +20,15 @@ export const S3RSVP: React.FC = () => {
   const { fps } = useVideoConfig();
 
   // Bulle WhatsApp : pop 0-12
-  const bubbleP = spring({ frame, fps, config: theme.spring.bouncy });
+  const bubbleP = spring({ frame, fps, config: theme.spring.snap });
   // Click ripple sur le lien 32-44
   const ripple = interpolate(frame, [32, 46], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   // Téléphone plein écran : 50-70
   const phoneT = interpolate(frame, [50, 70], [0, 1], { easing: Easing.inOut(Easing.bezier(0.83, 0, 0.17, 1)), extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   // Page welcome 70-100, RSVP 100-140, Billet 140-200
-  const welcP = spring({ frame: frame - 70, fps, config: theme.spring.smooth });
-  const rsvpP = spring({ frame: frame - 100, fps, config: theme.spring.smooth });
-  const ticketP = spring({ frame: frame - 142, fps, config: theme.spring.bouncy });
+  const welcP = spring({ frame: frame - 70, fps, config: theme.spring.snap });
+  const rsvpP = spring({ frame: frame - 100, fps, config: theme.spring.snap });
+  const ticketP = spring({ frame: frame - 142, fps, config: theme.spring.punch });
   // shimmer du billet (radial qui pulse)
   const shine = Math.sin(frame / 8) * 0.5 + 0.5;
 
@@ -38,8 +38,8 @@ export const S3RSVP: React.FC = () => {
   // numProgress * 14 may exceed; clamp:
   const numDisplay = numProgress >= 1 ? "06 12 34 56 78" : numText;
 
-  // Tagline
-  const tagP = spring({ frame: frame - 180, fps, config: theme.spring.smooth });
+  // Tagline (apparaît après le billet, en bas, hors du téléphone)
+  const tagP = spring({ frame: frame - 180, fps, config: theme.spring.punch });
 
   return (
     <AbsoluteFill style={{ background: theme.colors.bg }}>
@@ -75,21 +75,21 @@ export const S3RSVP: React.FC = () => {
             <div style={{ transform: "scale(1.6)", transformOrigin: "top left" }}>
               <WhatsAppIcon size={100} />
             </div>
-            <AppCard width={1280} pad={32} radius={36} shadow={theme.shadow.lift}>
-              <div style={{ fontFamily: theme.fonts.body, fontSize: 22, color: theme.colors.onyxSoft, marginBottom: 4 }}>Sarah · 14:02</div>
-              <div style={{ fontFamily: theme.fonts.body, fontSize: 28, color: theme.colors.onyx, marginBottom: 14 }}>
+            <AppCard width={1280} pad={36} radius={40} shadow={theme.shadow.lift}>
+              <div style={{ fontFamily: theme.fonts.body, fontSize: 26, color: theme.colors.onyxSoft, marginBottom: 8, fontWeight: 600 }}>Sarah · 14:02</div>
+              <div style={{ fontFamily: theme.fonts.body, fontSize: 36, color: theme.colors.onyx, marginBottom: 22, fontWeight: 500, lineHeight: 1.25 }}>
                 Coucou la famille 💍 On a tout préparé sur Deuxnous, c'est juste ici :
               </div>
               <div
                 style={{
                   display: "inline-block",
-                  padding: "14px 22px",
-                  borderRadius: 18,
+                  padding: "20px 32px",
+                  borderRadius: 22,
                   background: theme.colors.lavenderWash,
                   color: theme.colors.lavender,
                   fontFamily: theme.fonts.body,
-                  fontWeight: 700,
-                  fontSize: 26,
+                  fontWeight: 800,
+                  fontSize: 38,
                 }}
               >
                 deuxnous.app/mariage/jean-sarah
@@ -125,8 +125,8 @@ export const S3RSVP: React.FC = () => {
           style={{
             position: "absolute",
             left: "50%",
-            top: "50%",
-            transform: `translate(-50%, -50%) scale(${interpolate(phoneT, [0, 1], [0.9, 1])})`,
+            top: 90,
+            transform: `translate(-50%, 0) scale(${interpolate(phoneT, [0, 1], [0.9, 1])})`,
             opacity: phoneT,
           }}
         >
@@ -142,26 +142,26 @@ export const S3RSVP: React.FC = () => {
                   boxSizing: "border-box",
                 }}
               >
-                <div style={{ fontFamily: theme.fonts.display, fontSize: 26, color: theme.colors.onyx, fontWeight: 700, lineHeight: 1.1 }}>
+                <div style={{ fontFamily: theme.fonts.display, fontSize: 38, color: theme.colors.onyx, fontWeight: 700, lineHeight: 1.05 }}>
                   Bienvenue, <span style={{ color: theme.colors.lavender }}>Jean & Sarah</span>
                 </div>
-                <div style={{ fontFamily: theme.fonts.body, fontSize: 13, color: theme.colors.onyxSoft, marginTop: 4 }}>
+                <div style={{ fontFamily: theme.fonts.body, fontSize: 18, color: theme.colors.onyxSoft, marginTop: 6, fontWeight: 500 }}>
                   22 juin 2026 · 17h00 · Cotonou
                 </div>
-                <div style={{ height: 22 }} />
-                <AppCard width={PHONE_W - 48} pad={18} radius={20} bg={theme.colors.lavenderWash} shadow="none">
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 18, background: theme.colors.lavender, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <HeartIcon size={20} color="#FFFFFF" />
+                <div style={{ height: 28 }} />
+                <AppCard width={PHONE_W - 48} pad={20} radius={22} bg={theme.colors.lavenderWash} shadow="none">
+                  <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                    <div style={{ width: 48, height: 48, borderRadius: 24, background: theme.colors.lavender, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <HeartIcon size={26} color="#FFFFFF" />
                     </div>
                     <div>
-                      <div style={{ fontFamily: theme.fonts.body, fontWeight: 700, fontSize: 14, color: theme.colors.onyx }}>Cérémonie + Réception</div>
-                      <div style={{ fontFamily: theme.fonts.body, fontSize: 12, color: theme.colors.onyxSoft }}>128 invités confirmés</div>
+                      <div style={{ fontFamily: theme.fonts.body, fontWeight: 800, fontSize: 18, color: theme.colors.onyx }}>Cérémonie + Réception</div>
+                      <div style={{ fontFamily: theme.fonts.body, fontSize: 15, color: theme.colors.onyxSoft, fontWeight: 500 }}>128 invités confirmés</div>
                     </div>
                   </div>
                 </AppCard>
-                <div style={{ height: 18 }} />
-                <OnyxButton width={PHONE_W - 48} height={52} style={{ fontSize: 16 }}>Confirmer ma présence</OnyxButton>
+                <div style={{ height: 22 }} />
+                <OnyxButton width={PHONE_W - 48} height={60} style={{ fontSize: 22 }}>Confirmer ma présence</OnyxButton>
               </div>
 
               {/* RSVP (visible 100-150) */}
@@ -174,16 +174,16 @@ export const S3RSVP: React.FC = () => {
                   boxSizing: "border-box",
                 }}
               >
-                <div style={{ fontFamily: theme.fonts.display, fontSize: 24, color: theme.colors.onyx, fontWeight: 700 }}>
+                <div style={{ fontFamily: theme.fonts.display, fontSize: 36, color: theme.colors.onyx, fontWeight: 700 }}>
                   Votre numéro
                 </div>
-                <div style={{ fontFamily: theme.fonts.body, fontSize: 13, color: theme.colors.onyxSoft, marginTop: 4 }}>
+                <div style={{ fontFamily: theme.fonts.body, fontSize: 18, color: theme.colors.onyxSoft, marginTop: 6, fontWeight: 500 }}>
                   Pour recevoir votre billet.
                 </div>
+                <div style={{ height: 22 }} />
+                <Field value={numDisplay} placeholder="06 12 34 56 78" width={PHONE_W - 48} fontSize={24} caret={numProgress < 1} />
                 <div style={{ height: 18 }} />
-                <Field value={numDisplay} placeholder="06 12 34 56 78" width={PHONE_W - 48} fontSize={18} caret={numProgress < 1} />
-                <div style={{ height: 14 }} />
-                <OnyxButton width={PHONE_W - 48} height={52} style={{ fontSize: 16, opacity: numProgress >= 1 ? 1 : 0.4 }}>
+                <OnyxButton width={PHONE_W - 48} height={60} style={{ fontSize: 22, opacity: numProgress >= 1 ? 1 : 0.4 }}>
                   Recevoir mon billet
                 </OnyxButton>
               </div>
@@ -232,50 +232,50 @@ export const S3RSVP: React.FC = () => {
                       }}
                     />
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <div style={{ fontFamily: theme.fonts.body, fontSize: 11, letterSpacing: "0.2em", opacity: 0.85 }}>DEUXNOUS · VIP</div>
-                      <StarIcon size={22} color="#FFD76A" />
+                      <div style={{ fontFamily: theme.fonts.body, fontSize: 14, letterSpacing: "0.2em", opacity: 0.85, fontWeight: 700 }}>DEUXNOUS · VIP</div>
+                      <StarIcon size={28} color="#FFD76A" />
                     </div>
-                    <div style={{ fontFamily: theme.fonts.display, fontSize: 28, fontWeight: 700, marginTop: 6, lineHeight: 1.1 }}>
+                    <div style={{ fontFamily: theme.fonts.display, fontSize: 38, fontWeight: 700, marginTop: 8, lineHeight: 1.05 }}>
                       Jean & Sarah
                     </div>
-                    <div style={{ fontFamily: theme.fonts.body, fontSize: 13, opacity: 0.85, marginTop: 2 }}>
+                    <div style={{ fontFamily: theme.fonts.body, fontSize: 16, opacity: 0.85, marginTop: 4, fontWeight: 600 }}>
                       22 JUIN 2026 · COTONOU
                     </div>
                     <div
                       style={{
-                        marginTop: 14,
-                        padding: "10px 12px",
+                        marginTop: 18,
+                        padding: "12px 14px",
                         background: "rgba(255,255,255,0.15)",
-                        borderRadius: 12,
+                        borderRadius: 14,
                         display: "flex",
                         alignItems: "center",
-                        gap: 12,
+                        gap: 14,
                       }}
                     >
                       <div style={{ display: "flex", gap: 2, alignItems: "center" }}>
                         {Array.from({ length: 18 }).map((_, i) => (
-                          <div key={i} style={{ width: 2, height: i % 3 === 0 ? 18 : i % 2 === 0 ? 14 : 10, background: "#FFFFFF" }} />
+                          <div key={i} style={{ width: 3, height: i % 3 === 0 ? 22 : i % 2 === 0 ? 16 : 12, background: "#FFFFFF" }} />
                         ))}
                       </div>
                       <div>
-                        <div style={{ fontFamily: theme.fonts.mono, fontSize: 11, opacity: 0.7 }}>CODE</div>
-                        <div style={{ fontFamily: theme.fonts.mono, fontSize: 18, fontWeight: 700, letterSpacing: "0.16em" }}>JNS-26-AB7C</div>
+                        <div style={{ fontFamily: theme.fonts.mono, fontSize: 12, opacity: 0.7, fontWeight: 600 }}>CODE</div>
+                        <div style={{ fontFamily: theme.fonts.mono, fontSize: 22, fontWeight: 700, letterSpacing: "0.16em" }}>JNS-26-AB7C</div>
                       </div>
                     </div>
                   </div>
                   <div
                     style={{
-                      marginTop: 12,
+                      marginTop: 16,
                       display: "flex",
                       alignItems: "center",
-                      gap: 8,
+                      gap: 10,
                       color: theme.colors.mint,
                       fontFamily: theme.fonts.body,
-                      fontWeight: 700,
-                      fontSize: 16,
+                      fontWeight: 800,
+                      fontSize: 20,
                     }}
                   >
-                    <CheckIcon size={22} />
+                    <CheckIcon size={28} />
                     Billet ajouté à votre poche
                   </div>
                 </div>
@@ -287,22 +287,22 @@ export const S3RSVP: React.FC = () => {
         </div>
       ) : null}
 
-      {/* Tagline bas-gauche après billet */}
+      {/* Tagline bas-gauche après billet — sous le téléphone (top 90 + height 720 = bottom 810) */}
       <div
         style={{
           position: "absolute",
           left: 80,
-          bottom: 80,
-          maxWidth: 520,
+          bottom: 70,
+          maxWidth: 600,
           opacity: tagP,
-          transform: `translateY(${interpolate(tagP, [0, 1], [20, 0])}px)`,
+          transform: `translateY(${interpolate(tagP, [0, 1], [30, 0])}px)`,
         }}
       >
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "10px 18px", borderRadius: 999, background: theme.colors.mintWash, color: theme.colors.mint, fontFamily: theme.fonts.body, fontWeight: 700, fontSize: 22 }}>
-          <CheckIcon size={22} />
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "16px 28px", borderRadius: 999, background: theme.colors.mintWash, color: theme.colors.mint, fontFamily: theme.fonts.body, fontWeight: 800, fontSize: 30 }}>
+          <CheckIcon size={30} />
           Invitations
         </div>
-        <div style={{ fontFamily: theme.fonts.display, fontSize: 48, color: theme.colors.onyx, lineHeight: 1.05, marginTop: 14, letterSpacing: "-0.02em" }}>
+        <div style={{ fontFamily: theme.fonts.display, fontSize: 78, color: theme.colors.onyx, lineHeight: 1, marginTop: 18, letterSpacing: "-0.03em", fontWeight: 700 }}>
           Directement <br />
           <span style={{ color: theme.colors.mint }}>dans leur poche.</span>
         </div>

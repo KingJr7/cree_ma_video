@@ -33,9 +33,10 @@ export const S1Hook: React.FC = () => {
     extrapolateRight: "clamp",
   });
 
-  // Logo pop
-  const logoP = spring({ frame: frame - LOGO_FROM, fps, config: theme.spring.bouncy });
-  const textP = spring({ frame: frame - TEXT_FROM, fps, config: theme.spring.smooth });
+  // Logo pop — high momentum
+  const logoP = spring({ frame: frame - LOGO_FROM, fps, config: theme.spring.punch });
+  const textP = spring({ frame: frame - TEXT_FROM, fps, config: theme.spring.snap });
+  const checkP = spring({ frame: frame - (LOGO_FROM + 8), fps, config: theme.spring.bouncy });
 
   return (
     <AbsoluteFill style={{ background: theme.colors.bg }}>
@@ -52,7 +53,7 @@ export const S1Hook: React.FC = () => {
 
       {/* Chaos items */}
       {CHAOS.map((it, i) => {
-        const enter = spring({ frame: frame - it.delay, fps, config: theme.spring.bouncy });
+        const enter = spring({ frame: frame - it.delay, fps, config: theme.spring.snap });
         const shakeX = Math.sin((frame + i * 7) / 3) * it.shake * (frame < WIPE_FROM ? 1 : 0);
         const shakeY = Math.cos((frame + i * 5) / 2.7) * it.shake * (frame < WIPE_FROM ? 1 : 0);
         const wipeOut = frame >= WIPE_FROM ? Math.min(1, (frame - WIPE_FROM) / 8) : 0;
@@ -108,45 +109,46 @@ export const S1Hook: React.FC = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: 36,
+              gap: 48,
               transform: `scale(${interpolate(logoP, [0, 1], [0.4, 1])})`,
               opacity: logoP,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
-              <Logo size={120} />
-              <Wordmark size={120} />
+            <div style={{ display: "flex", alignItems: "center", gap: 36 }}>
+              <Logo size={180} />
+              <Wordmark size={180} />
             </div>
             <div
               style={{
                 fontFamily: theme.fonts.body,
-                fontSize: 36,
+                fontSize: 56,
                 color: theme.colors.onyxSoft,
                 opacity: textP,
                 transform: `translateY(${interpolate(textP, [0, 1], [16, 0])}px)`,
-                maxWidth: 1100,
+                maxWidth: 1400,
                 textAlign: "center",
-                lineHeight: 1.4,
+                lineHeight: 1.3,
+                fontWeight: 500,
               }}
             >
-              Tout votre mariage. <span style={{ color: theme.colors.lavender, fontWeight: 700 }}>Au même endroit.</span>
+              Tout votre mariage. <span style={{ color: theme.colors.lavender, fontWeight: 800 }}>Au même endroit.</span>
             </div>
           </div>
         </AbsoluteFill>
       ) : null}
 
       {/* Petit check qui apparaît sous le logo : "tâches faites" */}
-      {frame >= LOGO_FROM + 10 ? (
+      {frame >= LOGO_FROM + 8 ? (
         <div
           style={{
             position: "absolute",
-            right: 240,
-            top: 240,
-            opacity: spring({ frame: frame - (LOGO_FROM + 10), fps, config: theme.spring.bouncy }),
-            transform: `scale(${spring({ frame: frame - (LOGO_FROM + 10), fps, config: theme.spring.bouncy })})`,
+            right: 280,
+            top: 280,
+            opacity: checkP,
+            transform: `scale(${checkP})`,
           }}
         >
-          <CheckIcon size={64} />
+          <CheckIcon size={88} />
         </div>
       ) : null}
     </AbsoluteFill>

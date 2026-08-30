@@ -39,12 +39,13 @@ export const theme = {
     lg: 40,
     pill: 999,
   },
-  // Springs : ressource / soft / bouncy / snap
+  // Springs : high-momentum. Plus stiff, moins de damping, animations qui claquent.
   spring: {
-    soft: { damping: 18, mass: 0.9, stiffness: 140 },
-    smooth: { damping: 22, mass: 1, stiffness: 180 },
-    bouncy: { damping: 12, mass: 0.8, stiffness: 220 },
-    snap: { damping: 14, mass: 0.6, stiffness: 280 },
+    soft: { damping: 14, mass: 0.7, stiffness: 220 },
+    smooth: { damping: 18, mass: 0.8, stiffness: 260 },
+    bouncy: { damping: 10, mass: 0.7, stiffness: 320 },
+    snap: { damping: 11, mass: 0.55, stiffness: 420 },
+    punch: { damping: 8, mass: 0.5, stiffness: 480 },
   },
   // Ombre nette (style néo-banque), pas de glassmorphism
   shadow: {

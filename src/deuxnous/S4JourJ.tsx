@@ -23,13 +23,13 @@ const GOAL = 350000;
 const TOTAL = DONATIONS.reduce((s, d) => s + d.amount, 0);
 
 const POLAROIDS = [
-  { caption: "Jean ❤️ Sarah", seed: 0, x: 1020, y: 220, rot: -6, size: 170, delay: 80, dur: 360 },
-  { caption: "Premier bisou", seed: 1, x: 1220, y: 230, rot: 4, size: 170, delay: 130, dur: 360 },
-  { caption: "La famille", seed: 2, x: 1430, y: 240, rot: -3, size: 170, delay: 170, dur: 360 },
-  { caption: "Bénédiction", seed: 3, x: 1620, y: 230, rot: 6, size: 170, delay: 210, dur: 360 },
-  { caption: "Cake time", seed: 4, x: 1130, y: 470, rot: -8, size: 170, delay: 250, dur: 360 },
-  { caption: "Tout le monde danse", seed: 5, x: 1350, y: 480, rot: 5, size: 170, delay: 290, dur: 360 },
-  { caption: "Souvenir", seed: 0, x: 1560, y: 470, rot: -2, size: 170, delay: 330, dur: 360 },
+  { caption: "Jean ❤️ Sarah", seed: 0, x: 1020, y: 240, rot: -6, size: 150, delay: 80 },
+  { caption: "Premier bisou", seed: 1, x: 1200, y: 250, rot: 4, size: 150, delay: 130 },
+  { caption: "La famille", seed: 2, x: 1390, y: 245, rot: -3, size: 150, delay: 170 },
+  { caption: "Bénédiction", seed: 3, x: 1580, y: 240, rot: 6, size: 150, delay: 210 },
+  { caption: "Cake time", seed: 4, x: 1100, y: 460, rot: -8, size: 150, delay: 250 },
+  { caption: "Tout le monde danse", seed: 5, x: 1290, y: 470, rot: 5, size: 150, delay: 290 },
+  { caption: "Souvenir", seed: 0, x: 1480, y: 465, rot: -2, size: 150, delay: 330 },
 ];
 
 export const S4JourJ: React.FC = () => {
@@ -73,16 +73,16 @@ export const S4JourJ: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 56,
+          top: 60,
           left: 80,
-          opacity: spring({ frame, fps, config: theme.spring.smooth }),
-          transform: `translateY(${interpolate(spring({ frame, fps, config: theme.spring.smooth }), [0, 1], [-20, 0])}px)`,
+          opacity: spring({ frame, fps, config: theme.spring.snap }),
+          transform: `translateY(${interpolate(spring({ frame, fps, config: theme.spring.snap }), [0, 1], [-20, 0])}px)`,
         }}
       >
-        <div style={{ fontFamily: theme.fonts.body, fontSize: 22, color: theme.colors.mint, letterSpacing: "0.18em", textTransform: "uppercase" }}>
+        <div style={{ fontFamily: theme.fonts.body, fontSize: 28, color: theme.colors.mint, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>
           Le Jour J · en direct
         </div>
-        <div style={{ fontFamily: theme.fonts.display, fontSize: 68, color: theme.colors.onyx, letterSpacing: "-0.03em", lineHeight: 1.05, marginTop: 6 }}>
+        <div style={{ fontFamily: theme.fonts.display, fontSize: 96, color: theme.colors.onyx, letterSpacing: "-0.03em", lineHeight: 1.02, marginTop: 8, fontWeight: 700 }}>
           Tout est <span style={{ color: theme.colors.mint }}>en direct.</span>
         </div>
       </div>
@@ -93,20 +93,20 @@ export const S4JourJ: React.FC = () => {
           position: "absolute",
           left: 70,
           top: 240,
-          opacity: spring({ frame: frame - 4, fps, config: theme.spring.bouncy }),
-          transform: `translateY(${interpolate(spring({ frame: frame - 4, fps, config: theme.spring.bouncy }), [0, 1], [40, 0])}px)`,
+          opacity: spring({ frame: frame - 4, fps, config: theme.spring.punch }),
+          transform: `translateY(${interpolate(spring({ frame: frame - 4, fps, config: theme.spring.punch }), [0, 1], [60, 0])}px)`,
         }}
       >
         <PhoneFrame width={PHONE_W} height={760}>
           <div style={{ position: "absolute", inset: 0, paddingTop: 50, paddingBottom: 0, boxSizing: "border-box" }}>
-            <div style={{ padding: `14px ${PHONE_W * 0.06}px` }}>
-              <div style={{ fontFamily: theme.fonts.body, fontSize: 12, color: theme.colors.mint, letterSpacing: "0.18em", textTransform: "uppercase" }}>
+            <div style={{ padding: `16px ${PHONE_W * 0.06}px` }}>
+              <div style={{ fontFamily: theme.fonts.body, fontSize: 15, color: theme.colors.mint, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>
                 Cagnotte
               </div>
-              <div style={{ fontFamily: theme.fonts.display, fontSize: 44, color: theme.colors.onyx, fontWeight: 700, marginTop: 4, letterSpacing: "-0.03em" }}>
-                {TOTAL.toLocaleString("fr-FR")} <span style={{ fontSize: 22, color: theme.colors.onyxSoft }}>FCFA</span>
+              <div style={{ fontFamily: theme.fonts.display, fontSize: 56, color: theme.colors.onyx, fontWeight: 700, marginTop: 6, letterSpacing: "-0.03em" }}>
+                {TOTAL.toLocaleString("fr-FR")} <span style={{ fontSize: 28, color: theme.colors.onyxSoft }}>FCFA</span>
               </div>
-              <div style={{ fontFamily: theme.fonts.body, fontSize: 13, color: theme.colors.onyxSoft, marginTop: 2 }}>
+              <div style={{ fontFamily: theme.fonts.body, fontSize: 16, color: theme.colors.onyxSoft, marginTop: 4, fontWeight: 500 }}>
                 sur {GOAL.toLocaleString("fr-FR")} FCFA · {Math.round(pct * 100)}%
               </div>
             </div>
@@ -116,9 +116,9 @@ export const S4JourJ: React.FC = () => {
               <div
                 style={{
                   width: "100%",
-                  height: 14,
+                  height: 18,
                   background: theme.colors.bgAlt,
-                  borderRadius: 7,
+                  borderRadius: 9,
                   overflow: "hidden",
                   border: `1px solid ${theme.colors.line}`,
                 }}
@@ -128,15 +128,15 @@ export const S4JourJ: React.FC = () => {
                     width: `${pct * 100}%`,
                     height: "100%",
                     background: `linear-gradient(90deg, ${theme.colors.mint}, #4DE0BE)`,
-                    borderRadius: 7,
+                    borderRadius: 9,
                   }}
                 />
               </div>
 
-              <div style={{ height: 18 }} />
+              <div style={{ height: 22 }} />
 
               {/* Liste des dons */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {DONATIONS.map((d) => {
                   const show = frame >= d.delay + 10;
                   return (
@@ -145,10 +145,10 @@ export const S4JourJ: React.FC = () => {
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 10,
-                        padding: "8px 10px",
+                        gap: 12,
+                        padding: "10px 12px",
                         background: theme.colors.bgAlt,
-                        borderRadius: 12,
+                        borderRadius: 14,
                         opacity: show ? 1 : 0,
                         transform: show ? "translateX(0)" : "translateX(-12px)",
                         transition: "all 0.3s",
@@ -156,21 +156,22 @@ export const S4JourJ: React.FC = () => {
                     >
                       <div
                         style={{
-                          width: 28,
-                          height: 28,
-                          borderRadius: 14,
+                          width: 36,
+                          height: 36,
+                          borderRadius: 18,
                           background: theme.colors.mintWash,
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
+                          flexShrink: 0,
                         }}
                       >
-                        <GiftIcon size={18} />
+                        <GiftIcon size={22} />
                       </div>
-                      <div style={{ flex: 1, fontFamily: theme.fonts.body, fontSize: 14, color: theme.colors.onyx, fontWeight: 600 }}>
+                      <div style={{ flex: 1, fontFamily: theme.fonts.body, fontSize: 17, color: theme.colors.onyx, fontWeight: 700 }}>
                         {d.name}
                       </div>
-                      <div style={{ fontFamily: theme.fonts.body, fontSize: 14, color: theme.colors.mint, fontWeight: 700 }}>
+                      <div style={{ fontFamily: theme.fonts.body, fontSize: 17, color: theme.colors.mint, fontWeight: 800 }}>
                         +{d.amount.toLocaleString("fr-FR")} F
                       </div>
                     </div>
@@ -188,24 +189,24 @@ export const S4JourJ: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              right: -40,
-              top: 230,
+              right: -50,
+              top: 250,
               opacity: popupO,
               transform: `translateY(${popupY}px) scale(${interpolate(popupP, [0, 1], [0.6, 1])})`,
               background: theme.colors.mint,
               color: "#FFFFFF",
-              padding: "10px 18px",
-              borderRadius: 16,
+              padding: "14px 24px",
+              borderRadius: 22,
               fontFamily: theme.fonts.body,
-              fontWeight: 700,
-              fontSize: 22,
+              fontWeight: 800,
+              fontSize: 28,
               boxShadow: theme.shadow.lift,
               display: "flex",
               alignItems: "center",
-              gap: 8,
+              gap: 10,
             }}
           >
-            <GiftIcon size={20} color="#FFFFFF" />
+            <GiftIcon size={28} color="#FFFFFF" />
             +{currentDonation.amount.toLocaleString("fr-FR")} FCFA
           </div>
         ) : null}
@@ -225,7 +226,7 @@ export const S4JourJ: React.FC = () => {
         {POLAROIDS.map((p, i) => {
           const local = frame - p.delay;
           if (local < 0) return null;
-          const enter = spring({ frame: local, fps, config: theme.spring.bouncy });
+          const enter = spring({ frame: local, fps, config: theme.spring.punch });
           const finalY = p.y;
           const startY = p.y - 700;
           const ty = interpolate(enter, [0, 1], [startY, finalY]);
@@ -248,17 +249,17 @@ export const S4JourJ: React.FC = () => {
           );
         })}
 
-        {/* Horloge "jour J ouvert" */}
+        {/* Horloge "jour J ouvert" — sous la rangée du bas des polaroids */}
         <div
           style={{
             position: "absolute",
-            left: 1080,
-            top: 740,
+            left: 1020,
+            top: 700,
             display: "flex",
             alignItems: "center",
-            gap: 16,
-            opacity: spring({ frame: frame - 180, fps, config: theme.spring.bouncy }),
-            transform: `translateY(${interpolate(spring({ frame: frame - 180, fps, config: theme.spring.bouncy }), [0, 1], [30, 0])}px)`,
+            gap: 20,
+            opacity: spring({ frame: frame - 180, fps, config: theme.spring.punch }),
+            transform: `translateY(${interpolate(spring({ frame: frame - 180, fps, config: theme.spring.punch }), [0, 1], [30, 0])}px)`,
           }}
         >
           <div
@@ -267,12 +268,13 @@ export const S4JourJ: React.FC = () => {
               height: 110,
               borderRadius: 55,
               background: "#FFFFFF",
-              border: `4px solid ${theme.colors.lavender}`,
+              border: `5px solid ${theme.colors.lavender}`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               boxShadow: theme.shadow.card,
               position: "relative",
+              flexShrink: 0,
             }}
           >
             {/* Aiguille minute */}
@@ -314,11 +316,11 @@ export const S4JourJ: React.FC = () => {
             />
           </div>
           <div>
-            <div style={{ fontFamily: theme.fonts.body, fontSize: 13, color: theme.colors.lavender, letterSpacing: "0.18em", textTransform: "uppercase" }}>
+            <div style={{ fontFamily: theme.fonts.body, fontSize: 16, color: theme.colors.lavender, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>
               Galerie
             </div>
-            <div style={{ fontFamily: theme.fonts.display, fontSize: 28, color: theme.colors.onyx, fontWeight: 700, letterSpacing: "-0.02em" }}>
-              Le jour J vient de s'ouvrir
+            <div style={{ fontFamily: theme.fonts.display, fontSize: 36, color: theme.colors.onyx, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05, marginTop: 2 }}>
+              Le jour J s'ouvre
             </div>
           </div>
         </div>
@@ -330,15 +332,15 @@ export const S4JourJ: React.FC = () => {
           position: "absolute",
           left: 80,
           bottom: 60,
-          opacity: spring({ frame: frame - 220, fps, config: theme.spring.smooth }),
-          transform: `translateY(${interpolate(spring({ frame: frame - 220, fps, config: theme.spring.smooth }), [0, 1], [20, 0])}px)`,
+          opacity: spring({ frame: frame - 220, fps, config: theme.spring.snap }),
+          transform: `translateY(${interpolate(spring({ frame: frame - 220, fps, config: theme.spring.snap }), [0, 1], [30, 0])}px)`,
         }}
       >
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 16px", borderRadius: 999, background: theme.colors.lavenderWash, color: theme.colors.lavender, fontFamily: theme.fonts.body, fontWeight: 700, fontSize: 18, marginBottom: 8 }}>
-          <CheckIcon size={18} />
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 12, padding: "14px 24px", borderRadius: 999, background: theme.colors.lavenderWash, color: theme.colors.lavender, fontFamily: theme.fonts.body, fontWeight: 800, fontSize: 24, marginBottom: 14 }}>
+          <CheckIcon size={24} />
           Cagnotte intégrée
         </div>
-        <div style={{ fontFamily: theme.fonts.display, fontSize: 32, color: theme.colors.onyx, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+        <div style={{ fontFamily: theme.fonts.display, fontSize: 56, color: theme.colors.onyx, letterSpacing: "-0.03em", lineHeight: 1, fontWeight: 700 }}>
           Album collaboratif <span style={{ color: theme.colors.mint }}>en direct</span>.
         </div>
       </div>
