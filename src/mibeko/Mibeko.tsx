@@ -1,37 +1,61 @@
-// Mibeko — vidéo TikTok 9:16, style sobre/éditorial, fond noir + blanc cassé.
+// Mibeko v2 — style bicolore noir/blanc cut direct, sticker média (photo/vidéo Pexels) centré,
+// karaoké mot par mot MAJUSCULES au-dessus, motion design + sound design.
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { theme, TOTAL_FRAMES } from "./theme";
-import { SCENES } from "./data";
-import { SceneImage, Eyebrow, Pill, Wordmark, StoreButtons } from "./Scene";
-import { SyncedCaption } from "./SyncedCaption";
+import { SECTIONS, sectionAt } from "./data";
+import { MediaTile } from "./MediaTile";
+import { Karaoke } from "./Karaoke";
+import { StoryProgress } from "./Progress";
 import { AudioMibeko } from "./AudioMibeko";
+import { theme } from "./theme";
 
-export const Mibeko: React.FC = () => (
-  <AbsoluteFill style={{ background: theme.colors.bg }}>
-    {SCENES.map((s) => (
-      <SceneImage key={s.id} scene={s} />
-    ))}
-    {SCENES.map((s) => (
-      <Eyebrow key={`e-${s.id}`} scene={s} />
-    ))}
-    {SCENES.map((s) => (
-      <Pill key={`p-${s.id}`} scene={s} />
-    ))}
-    <StoryProgress />
-    <Wordmark />
-    <SyncedCaption />
-    <StoreButtons />
-    <AudioMibeko />
-  </AbsoluteFill>
-);
-
-const StoryProgress: React.FC = () => {
+export const Mibeko: React.FC = () => {
   const frame = useCurrentFrame();
-  const p = Math.min(1, frame / TOTAL_FRAMES);
+  const sec = sectionAt(frame);
+  const media = SECTIONS.flatMap((s) => s.media);
+
   return (
-    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 10, zIndex: 8, background: "rgba(245,241,232,0.12)" }}>
-      <div style={{ width: `${p * 100}%`, height: "100%", background: theme.colors.accent }} />
+    <AbsoluteFill style={{ background: sec.bg, transition: "none" }}>
+      {/* Plan fond — plaque bicolore (cut direct) */}
+      <AbsoluteFill style={{ background: sec.bg }} />
+
+      {/* Plan intermédiaire — stickers médias (photos/vidéos) */}
+      {media.map((m, i) => (
+        <MediaTile key={`${m.src}-${i}`} m={m} centerY={420} />
+      ))}
+
+      {/* Premier plan — texte karaoké */}
+      <Karaoke />
+
+      <Brand bg={sec.bg} />
+      <StoryProgress bg={sec.bg} />
+      <AudioMibeko />
+    </AbsoluteFill>
+  );
+};
+
+// Petite pastille Mibeko persistante en haut.
+const Brand: React.FC<{ bg: string }> = ({ bg }) => {
+  const fg = bg === "#000000" ? "#000000" : "#FFFFFF";
+  const text = bg === "#000000" ? "#FFFFFF" : "#000000";
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 90,
+        left: 0,
+        right: 0,
+        display: "flex",
+        justifyContent: "center",
+        zIndex: 6,
+        fontFamily: "Space Grotesk",
+        fontWeight: 800,
+        letterSpacing: "0.22em",
+        fontSize: 30,
+        color: text,
+      }}
+    >
+      <span style={{ background: fg, padding: "14px 26px", borderRadius: 999 }}>MIBEKO</span>
     </div>
   );
 };

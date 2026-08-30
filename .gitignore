@@ -14,3 +14,5 @@ publish/
 # mais on commit celles copiées dans public/ pour le rendu
 !/public/audio_voix.wav
 !/public/voicecc.mp3
+# clips vidéo Pexels pour le montage Mibeko (on commit)
+!/public/vids/**

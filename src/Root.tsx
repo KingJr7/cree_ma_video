@@ -4,6 +4,7 @@ import { loadFont as loadDisplay } from "@remotion/google-fonts/SpaceGrotesk";
 import { loadFont as loadMono } from "@remotion/google-fonts/JetBrainsMono";
 import { loadFont as loadFraunces } from "@remotion/google-fonts/Fraunces";
 import { loadFont as loadGeist } from "@remotion/google-fonts/Geist";
+import { loadFont as loadMontserrat } from "@remotion/google-fonts/Montserrat";
 import { BgMesh, Grade, Grain, Vignette } from "./components/Layers";
 import { ImageCard } from "./components/ImageCard";
 import { SyncedCaptions } from "./components/SyncedCaptions";
@@ -37,6 +38,7 @@ loadDisplay();
 loadMono();
 loadFraunces();
 loadGeist();
+loadMontserrat();
 
 // === VoixVideo (Congo, déjà existante) ===
 
