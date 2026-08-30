@@ -21,7 +21,7 @@ export const Mibeko: React.FC = () => {
 
       {/* Plan intermédiaire — stickers médias (photos/vidéos) */}
       {media.map((m, i) => (
-        <MediaTile key={`${m.src}-${i}`} m={m} centerY={420} />
+        <MediaTile key={`${m.src}-${i}`} m={m} centerY={960} />
       ))}
 
       {/* Premier plan — texte karaoké */}

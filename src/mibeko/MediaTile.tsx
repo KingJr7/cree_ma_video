@@ -4,7 +4,7 @@ import React from "react";
 import { Img, OffthreadVideo, staticFile, spring, useCurrentFrame, useVideoConfig, interpolate } from "remotion";
 import { type Media } from "./data";
 
-const TILE = 460; // largeur ~43% de 1080
+const TILE = 660; // largeur ~61% de 1080
 
 export const MediaTile: React.FC<{ m: Media; centerY: number }> = ({ m, centerY }) => {
   const frame = useCurrentFrame();

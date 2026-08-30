@@ -12,7 +12,6 @@ export const Karaoke: React.FC = () => {
   const ms = currentMs(frame, fps);
   const sec = sectionAt(frame);
   const fg = sec.bg === "#000000" ? "#FFFFFF" : "#000000";
-  const centerY = 460;
 
   // mots audio visibles (actuellement prononcés + petite traîne)
   const visible = WORDS.filter((w) => ms >= w.s && ms < w.e + 180);
@@ -23,7 +22,7 @@ export const Karaoke: React.FC = () => {
         position: "absolute",
         left: 0,
         right: 0,
-        top: centerY - 60,
+        bottom: 150,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
