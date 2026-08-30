@@ -17,6 +17,11 @@ import { S4JourJ } from "./deuxnous/S4JourJ";
 import { S5Album } from "./deuxnous/S5Album";
 import { S5Outro as S6Outro } from "./deuxnous/S5Outro";
 import { AudioDeuxnous } from "./deuxnous/AudioDeuxnous";
+import { S1Probleme } from "./deuxnous-zk/S1Probleme";
+import { S2Solution } from "./deuxnous-zk/S2Solution";
+import { S3Features } from "./deuxnous-zk/S3Features";
+import { S4CTA } from "./deuxnous-zk/S4CTA";
+import { AudioZk } from "./deuxnous-zk/AudioZk";
 import { theme as dnTheme } from "./deuxnous/theme";
 
 loadDisplay();
@@ -131,9 +136,29 @@ const Deuxnous: React.FC = () => (
   </AbsoluteFill>
 );
 
+// === DeuxnousZokaly — 39s, 1080×1920, fond lavande, high-momentum ===
+// S1 Problème : 0   – 210  (7s)   — texte stagger, bulles WhatsApp, cartes problème
+// S2 Solution : 210 – 450  (8s)   — push-down, logo, téléphone + dashboard cascade
+// S3 Features : 450 – 900  (15s)  — pan continu sur canvas 1080×3840, 4 features + satellites
+// S4 CTA      : 900 – 1170 (9s)   — push-up, wordmark "Deuxnous.", CTA pulse, confettis
+
+const ZK_FPS = 30;
+const ZK_FRAMES = 39 * ZK_FPS; // 1170
+
+const DeuxnousZokaly: React.FC = () => (
+  <AbsoluteFill style={{ background: "#6B4EFE" }}>
+    <Sequence from={0} durationInFrames={210}><S1Probleme /></Sequence>
+    <Sequence from={210} durationInFrames={240}><S2Solution /></Sequence>
+    <Sequence from={450} durationInFrames={450}><S3Features /></Sequence>
+    <Sequence from={900} durationInFrames={270}><S4CTA /></Sequence>
+    <AudioZk />
+  </AbsoluteFill>
+);
+
 export const Root: React.FC = () => (
   <>
     <Composition id="VoixVideo" component={VoixVideo} durationInFrames={msToFrame(TOTAL_MS)} fps={FPS} width={1080} height={1920} />
     <Composition id="Deuxnous" component={Deuxnous} durationInFrames={DEUXNOUS_FRAMES} fps={DEUXNOUS_FPS} width={1920} height={1080} />
+    <Composition id="DeuxnousZokaly" component={DeuxnousZokaly} durationInFrames={ZK_FRAMES} fps={ZK_FPS} width={1080} height={1920} />
   </>
 );
