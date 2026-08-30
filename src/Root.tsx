@@ -22,6 +22,13 @@ import { S2Solution } from "./deuxnous-zk/S2Solution";
 import { S3Features } from "./deuxnous-zk/S3Features";
 import { S4CTA } from "./deuxnous-zk/S4CTA";
 import { AudioZk } from "./deuxnous-zk/AudioZk";
+import { S1Hook as HS1Hook } from "./deuxnous-h/S1Hook";
+import { S2Create as HS2Create } from "./deuxnous-h/S2Create";
+import { S3RSVP as HS3RSVP } from "./deuxnous-h/S3RSVP";
+import { S4JourJ as HS4JourJ } from "./deuxnous-h/S4JourJ";
+import { S5Album as HS5Album } from "./deuxnous-h/S5Album";
+import { S6Outro as HS6Outro } from "./deuxnous-h/S6Outro";
+import { AudioH } from "./deuxnous-h/AudioH";
 import { theme as dnTheme } from "./deuxnous/theme";
 
 loadDisplay();
@@ -155,10 +162,34 @@ const DeuxnousZokaly: React.FC = () => (
   </AbsoluteFill>
 );
 
+// === DeuxnousHybrid — 40s, 1920×1080, fond noir + accent menthe, style Zokaly ===
+// S1 Hook      : 0    – 150  (5s)
+// S2 Création  : 150  – 330  (6s)
+// S3 RSVP      : 330  – 540  (7s)
+// S4 Jour J    : 540  – 840  (10s)
+// S5 Album     : 840  – 1020 (6s)
+// S6 Outro     : 1020 – 1200 (6s)
+
+const HYBRID_FPS = 30;
+const HYBRID_FRAMES = 40 * HYBRID_FPS;
+
+const DeuxnousHybrid: React.FC = () => (
+  <AbsoluteFill style={{ background: "#0A0A12" }}>
+    <Sequence from={0} durationInFrames={150}><HS1Hook /></Sequence>
+    <Sequence from={150} durationInFrames={180}><HS2Create /></Sequence>
+    <Sequence from={330} durationInFrames={210}><HS3RSVP /></Sequence>
+    <Sequence from={540} durationInFrames={300}><HS4JourJ /></Sequence>
+    <Sequence from={840} durationInFrames={180}><HS5Album /></Sequence>
+    <Sequence from={1020} durationInFrames={180}><HS6Outro /></Sequence>
+    <AudioH />
+  </AbsoluteFill>
+);
+
 export const Root: React.FC = () => (
   <>
     <Composition id="VoixVideo" component={VoixVideo} durationInFrames={msToFrame(TOTAL_MS)} fps={FPS} width={1080} height={1920} />
     <Composition id="Deuxnous" component={Deuxnous} durationInFrames={DEUXNOUS_FRAMES} fps={DEUXNOUS_FPS} width={1920} height={1080} />
     <Composition id="DeuxnousZokaly" component={DeuxnousZokaly} durationInFrames={ZK_FRAMES} fps={ZK_FPS} width={1080} height={1920} />
+    <Composition id="DeuxnousHybrid" component={DeuxnousHybrid} durationInFrames={HYBRID_FRAMES} fps={HYBRID_FPS} width={1920} height={1080} />
   </>
 );

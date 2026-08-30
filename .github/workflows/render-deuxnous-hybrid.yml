@@ -1,0 +1,72 @@
+name: render-deuxnous-hybrid
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/deuxnous-h/**'
+      - 'src/Root.tsx'
+      - 'package.json'
+      - '.github/workflows/render-deuxnous-hybrid.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: render-deuxnous-hybrid-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Synthesize audio
+        run: npm run audio
+
+      - name: Render MP4
+        run: npx remotion render src/index.ts DeuxnousHybrid out/deuxnous-hybrid.mp4 --codec h264 --crf 16
+
+      - name: Publish to renders-deuxnous-hybrid branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          rm -rf publish && mkdir publish
+          cp out/deuxnous-hybrid.mp4 publish/
+          cd publish
+          git init -b renders-deuxnous-hybrid
+          git config user.name "render-bot"
+          git config user.email "actions@github.com"
+          git remote add origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add -A
+          git commit -m "render-deuxnous-hybrid: ${GITHUB_SHA}"
+          git push -f origin renders-deuxnous-hybrid
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-deuxnous-hybrid
+          path: out/
+          retention-days: 30
+
+      - name: Verify encode
+        run: |
+          set -e
+          if ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+          ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate,codec_name \
+            -of json out/deuxnous-hybrid.mp4
