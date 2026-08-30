@@ -33,6 +33,8 @@ import { AudioH } from "./deuxnous-h/AudioH";
 import { theme as dnTheme } from "./deuxnous/theme";
 import { Mibeko } from "./mibeko/Mibeko";
 import { TOTAL_FRAMES as MB_FRAMES, FPS as MB_FPS } from "./mibeko/theme";
+import { Mibeko2 } from "./mibeko2/Mibeko2";
+import { TOTAL_FRAMES as MB2_FRAMES, FPS as MB2_FPS } from "./mibeko2/theme";
 
 loadDisplay();
 loadMono();
@@ -196,5 +198,6 @@ export const Root: React.FC = () => (
     <Composition id="DeuxnousZokaly" component={DeuxnousZokaly} durationInFrames={ZK_FRAMES} fps={ZK_FPS} width={1080} height={1920} />
     <Composition id="DeuxnousHybrid" component={DeuxnousHybrid} durationInFrames={HYBRID_FRAMES} fps={HYBRID_FPS} width={1920} height={1080} />
     <Composition id="Mibeko" component={Mibeko} durationInFrames={MB_FRAMES} fps={MB_FPS} width={1080} height={1920} />
+    <Composition id="Mibeko2" component={Mibeko2} durationInFrames={MB2_FRAMES} fps={MB2_FPS} width={1080} height={1920} />
   </>
 );

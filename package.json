@@ -9,7 +9,8 @@
     "render-deuxnous": "remotion render src/index.ts Deuxnous out/deuxnous-launch.mp4 --codec h264 --crf 16 --overwrite",
     "render-deuxnous-zokaly": "remotion render src/index.ts DeuxnousZokaly out/deuxnous-zokaly.mp4 --codec h264 --crf 16 --overwrite",
     "render-deuxnous-hybrid": "remotion render src/index.ts DeuxnousHybrid out/deuxnous-hybrid.mp4 --codec h264 --crf 16 --overwrite",
-    "render-mibeko": "remotion render src/index.ts Mibeko out/mibeko.mp4 --codec h264 --crf 16 --overwrite"
+    "render-mibeko": "remotion render src/index.ts Mibeko out/mibeko.mp4 --codec h264 --crf 16 --overwrite",
+    "render-mibeko2": "remotion render src/index.ts Mibeko2 out/mibeko2.mp4 --codec h264 --crf 16 --overwrite"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",

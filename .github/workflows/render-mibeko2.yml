@@ -1,0 +1,76 @@
+name: render-mibeko2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/mibeko2/**'
+      - 'src/Root.tsx'
+      - 'public/imgs/mibeko2/**'
+      - 'public/vids/mibeko2/**'
+      - 'public/voiceca.mp3'
+      - 'public/ca-vo.json'
+      - 'package.json'
+      - '.github/workflows/render-mibeko2.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: render-mibeko2-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Synthesize audio (nappe musicale)
+        run: npm run audio
+
+      - name: Render MP4
+        run: npx remotion render src/index.ts Mibeko2 out/mibeko2.mp4 --codec h264 --crf 16
+
+      - name: Publish to renders-mibeko2 branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          rm -rf publish && mkdir publish
+          cp out/mibeko2.mp4 publish/
+          cd publish
+          git init -b renders-mibeko2
+          git config user.name "render-bot"
+          git config user.email "actions@github.com"
+          git remote add origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add -A
+          git commit -m "render-mibeko2: ${GITHUB_SHA}"
+          git push -f origin renders-mibeko2
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-mibeko2
+          path: out/
+          retention-days: 30
+
+      - name: Verify encode
+        run: |
+          set -e
+          if ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+          ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate,codec_name \
+            -of json out/mibeko2.mp4

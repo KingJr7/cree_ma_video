@@ -1,0 +1,282 @@
+[
+  {
+    "scene": "hook",
+    "kind": "img",
+    "n": 0,
+    "file": "public/imgs/mibeko2/hook-0.jpeg",
+    "bytes": 75771
+  },
+  {
+    "scene": "hook",
+    "kind": "img",
+    "n": 1,
+    "file": "public/imgs/mibeko2/hook-1.jpeg",
+    "bytes": 104458
+  },
+  {
+    "scene": "hook",
+    "kind": "img",
+    "n": 2,
+    "file": "public/imgs/mibeko2/hook-2.jpeg",
+    "bytes": 76420
+  },
+  {
+    "scene": "hook",
+    "kind": "vid",
+    "n": 0,
+    "file": "public/vids/mibeko2/hook-0.mp4",
+    "bytes": 1950847
+  },
+  {
+    "scene": "hook",
+    "kind": "vid",
+    "n": 1,
+    "file": "public/vids/mibeko2/hook-1.mp4",
+    "bytes": 571205
+  },
+  {
+    "scene": "tension",
+    "kind": "img",
+    "n": 0,
+    "file": "public/imgs/mibeko2/tension-0.jpeg",
+    "bytes": 125376
+  },
+  {
+    "scene": "tension",
+    "kind": "img",
+    "n": 1,
+    "file": "public/imgs/mibeko2/tension-1.jpeg",
+    "bytes": 185258
+  },
+  {
+    "scene": "tension",
+    "kind": "img",
+    "n": 2,
+    "file": "public/imgs/mibeko2/tension-2.jpeg",
+    "bytes": 152883
+  },
+  {
+    "scene": "tension",
+    "kind": "vid",
+    "n": 0,
+    "file": "public/vids/mibeko2/tension-0.mp4",
+    "bytes": 669948
+  },
+  {
+    "scene": "tension",
+    "kind": "vid",
+    "n": 1,
+    "file": "public/vids/mibeko2/tension-1.mp4",
+    "bytes": 1481683
+  },
+  {
+    "scene": "step1",
+    "kind": "img",
+    "n": 0,
+    "file": "public/imgs/mibeko2/step1-0.jpeg",
+    "bytes": 101398
+  },
+  {
+    "scene": "step1",
+    "kind": "img",
+    "n": 1,
+    "file": "public/imgs/mibeko2/step1-1.jpeg",
+    "bytes": 75771
+  },
+  {
+    "scene": "step1",
+    "kind": "img",
+    "n": 2,
+    "file": "public/imgs/mibeko2/step1-2.jpeg",
+    "bytes": 67009
+  },
+  {
+    "scene": "step1",
+    "kind": "vid",
+    "n": 0,
+    "file": "public/vids/mibeko2/step1-0.mp4",
+    "bytes": 794486
+  },
+  {
+    "scene": "step1",
+    "kind": "vid",
+    "n": 1,
+    "file": "public/vids/mibeko2/step1-1.mp4",
+    "bytes": 394914
+  },
+  {
+    "scene": "step2",
+    "kind": "img",
+    "n": 0,
+    "file": "public/imgs/mibeko2/step2-0.jpeg",
+    "bytes": 284182
+  },
+  {
+    "scene": "step2",
+    "kind": "img",
+    "n": 1,
+    "file": "public/imgs/mibeko2/step2-1.jpeg",
+    "bytes": 359151
+  },
+  {
+    "scene": "step2",
+    "kind": "img",
+    "n": 2,
+    "file": "public/imgs/mibeko2/step2-2.jpeg",
+    "bytes": 174841
+  },
+  {
+    "scene": "step2",
+    "kind": "vid",
+    "n": 0,
+    "file": "public/vids/mibeko2/step2-0.mp4",
+    "bytes": 1122506
+  },
+  {
+    "scene": "step2",
+    "kind": "vid",
+    "n": 1,
+    "file": "public/vids/mibeko2/step2-1.mp4",
+    "bytes": 705872
+  },
+  {
+    "scene": "step3",
+    "kind": "img",
+    "n": 0,
+    "file": "public/imgs/mibeko2/step3-0.jpeg",
+    "bytes": 90667
+  },
+  {
+    "scene": "step3",
+    "kind": "img",
+    "n": 1,
+    "file": "public/imgs/mibeko2/step3-1.jpeg",
+    "bytes": 60746
+  },
+  {
+    "scene": "step3",
+    "kind": "img",
+    "n": 2,
+    "file": "public/imgs/mibeko2/step3-2.jpeg",
+    "bytes": 63967
+  },
+  {
+    "scene": "step3",
+    "kind": "vid",
+    "n": 0,
+    "file": "public/vids/mibeko2/step3-0.mp4",
+    "bytes": 1331135
+  },
+  {
+    "scene": "step3",
+    "kind": "vid",
+    "n": 1,
+    "file": "public/vids/mibeko2/step3-1.mp4",
+    "bytes": 1225363
+  },
+  {
+    "scene": "step4",
+    "kind": "img",
+    "n": 0,
+    "file": "public/imgs/mibeko2/step4-0.jpeg",
+    "bytes": 79578
+  },
+  {
+    "scene": "step4",
+    "kind": "img",
+    "n": 1,
+    "file": "public/imgs/mibeko2/step4-1.jpeg",
+    "bytes": 171822
+  },
+  {
+    "scene": "step4",
+    "kind": "img",
+    "n": 2,
+    "file": "public/imgs/mibeko2/step4-2.jpeg",
+    "bytes": 119519
+  },
+  {
+    "scene": "step4",
+    "kind": "vid",
+    "n": 0,
+    "file": "public/vids/mibeko2/step4-0.mp4",
+    "bytes": 501700
+  },
+  {
+    "scene": "step4",
+    "kind": "vid",
+    "n": 1,
+    "file": "public/vids/mibeko2/step4-1.mp4",
+    "bytes": 597450
+  },
+  {
+    "scene": "payoff",
+    "kind": "img",
+    "n": 0,
+    "file": "public/imgs/mibeko2/payoff-0.jpeg",
+    "bytes": 136426
+  },
+  {
+    "scene": "payoff",
+    "kind": "img",
+    "n": 1,
+    "file": "public/imgs/mibeko2/payoff-1.jpeg",
+    "bytes": 22652
+  },
+  {
+    "scene": "payoff",
+    "kind": "img",
+    "n": 2,
+    "file": "public/imgs/mibeko2/payoff-2.jpeg",
+    "bytes": 86712
+  },
+  {
+    "scene": "payoff",
+    "kind": "vid",
+    "n": 0,
+    "file": "public/vids/mibeko2/payoff-0.mp4",
+    "bytes": 559393
+  },
+  {
+    "scene": "payoff",
+    "kind": "vid",
+    "n": 1,
+    "file": "public/vids/mibeko2/payoff-1.mp4",
+    "bytes": 1042323
+  },
+  {
+    "scene": "cta",
+    "kind": "img",
+    "n": 0,
+    "file": "public/imgs/mibeko2/cta-0.jpeg",
+    "bytes": 88573
+  },
+  {
+    "scene": "cta",
+    "kind": "img",
+    "n": 1,
+    "file": "public/imgs/mibeko2/cta-1.jpeg",
+    "bytes": 91462
+  },
+  {
+    "scene": "cta",
+    "kind": "img",
+    "n": 2,
+    "file": "public/imgs/mibeko2/cta-2.png",
+    "bytes": 1289292
+  },
+  {
+    "scene": "cta",
+    "kind": "vid",
+    "n": 0,
+    "file": "public/vids/mibeko2/cta-0.mp4",
+    "bytes": 783096
+  },
+  {
+    "scene": "cta",
+    "kind": "vid",
+    "n": 1,
+    "file": "public/vids/mibeko2/cta-1.mp4",
+    "bytes": 1027608
+  }
+]

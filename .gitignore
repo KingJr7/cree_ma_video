@@ -11,8 +11,10 @@ publish/
 # voix off source à la racine (celles fournies par l'utilisateur)
 /audio_voix.wav
 /voicecc.mp3
+/voiceca.mp3
 # mais on commit celles copiées dans public/ pour le rendu
 !/public/audio_voix.wav
 !/public/voicecc.mp3
+!/public/voiceca.mp3
 # clips vidéo Pexels pour le montage Mibeko (on commit)
 !/public/vids/**
