@@ -60,14 +60,16 @@ export const S2Create: React.FC = () => {
         }}
       />
 
-      {/* Titre scène */}
+      {/* Titre scène — à droite */}
       <div
         style={{
           position: "absolute",
-          left: 80,
-          top: 80,
+          right: 100,
+          top: 100,
+          maxWidth: 700,
+          textAlign: "right",
           opacity: spring({ frame, fps, config: theme.spring.snap }),
-          transform: `translateX(${interpolate(spring({ frame, fps, config: theme.spring.snap }), [0, 1], [-30, 0])}px)`,
+          transform: `translateX(${interpolate(spring({ frame, fps, config: theme.spring.snap }), [0, 1], [30, 0])}px)`,
         }}
       >
         <div style={{ fontFamily: theme.fonts.body, fontSize: 30, color: theme.colors.lavender, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>
@@ -78,13 +80,13 @@ export const S2Create: React.FC = () => {
         </div>
       </div>
 
-      {/* Téléphone centré */}
+      {/* Téléphone à gauche */}
       <div
         style={{
           position: "absolute",
-          left: "50%",
+          left: 90,
           top: "50%",
-          transform: `translate(-50%, calc(-50% + ${phoneSlide}px)) scale(${interpolate(phoneIn, [0, 1], [0.92, 1])})`,
+          transform: `translate(0, calc(-50% + ${phoneSlide}px)) scale(${interpolate(phoneIn, [0, 1], [0.92, 1])})`,
           opacity: phoneIn,
         }}
       >

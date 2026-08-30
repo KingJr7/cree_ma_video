@@ -150,7 +150,7 @@ export const S5Outro: React.FC = () => {
         <div
           style={{
             fontFamily: theme.fonts.display,
-            fontSize: 200,
+            fontSize: 170,
             color: theme.colors.onyx,
             lineHeight: 0.9,
             letterSpacing: "-0.05em",
@@ -158,6 +158,7 @@ export const S5Outro: React.FC = () => {
             opacity: titleP,
             transform: `scale(${interpolate(titleP, [0, 1], [0.85, 1])}) translateY(${interpolate(titleP, [0, 1], [30, 0])}px)`,
             transformOrigin: "left center",
+            whiteSpace: "nowrap",
           }}
         >
           Deux<span style={{ color: theme.colors.lavender }}>nous</span>

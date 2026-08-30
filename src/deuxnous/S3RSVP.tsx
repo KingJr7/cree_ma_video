@@ -72,8 +72,9 @@ export const S3RSVP: React.FC = () => {
               gap: 24,
             }}
           >
-            <div style={{ transform: "scale(1.6)", transformOrigin: "top left" }}>
-              <WhatsAppIcon size={100} />
+            {/* Avatar WhatsApp aligné avec le top du contenu du card (Sarah · 14:02) */}
+            <div style={{ paddingTop: 8 }}>
+              <WhatsAppIcon size={72} />
             </div>
             <AppCard width={1280} pad={36} radius={40} shadow={theme.shadow.lift}>
               <div style={{ fontFamily: theme.fonts.body, fontSize: 26, color: theme.colors.onyxSoft, marginBottom: 8, fontWeight: 600 }}>Sarah · 14:02</div>
@@ -96,24 +97,25 @@ export const S3RSVP: React.FC = () => {
               </div>
             </AppCard>
           </div>
-          {/* Click ripple */}
+          {/* Click ripple — sur la pill "deuxnous.app/..." (en bas du card) */}
           {frame >= 32 ? (
             <div
               style={{
                 position: "absolute",
-                left: 540,
-                top: 230,
-                width: 90 * ripple,
-                height: 90 * ripple,
+                left: 430,
+                top: 200,
+                width: 120 * ripple,
+                height: 120 * ripple,
                 borderRadius: "50%",
-                border: `3px solid ${theme.colors.lavender}`,
+                border: `4px solid ${theme.colors.lavender}`,
                 opacity: (1 - ripple) * 1.4,
+                transform: "translate(-50%, -50%)",
               }}
             />
           ) : null}
           {frame >= 32 && frame <= 46 ? (
-            <div style={{ position: "absolute", left: 560, top: 240, opacity: 1 - ripple }}>
-              <CursorIcon size={32} color={theme.colors.onyx} />
+            <div style={{ position: "absolute", left: 450, top: 210, opacity: 1 - ripple }}>
+              <CursorIcon size={40} color={theme.colors.onyx} />
             </div>
           ) : null}
         </div>

@@ -3,82 +3,93 @@ import { Audio, Sequence, staticFile } from "remotion";
 
 // AudioDeuxnous — pose la nappe Amapiano + chaque SFX à la frame ciblée.
 // Le beat tourne en boucle sous tout (volume 0.22), les SFX claquent par-dessus.
+// Timeline (frames absolues @ 30 fps) :
+//   S1 Hook     : 0    – 150
+//   S2 Création : 150  – 330
+//   S3 RSVP     : 330  – 540
+//   S4 Jour J   : 540  – 840
+//   S5 Album    : 840  – 1020
+//   S6 Outro    : 1020 – 1200
+
+const Frame = ({ from, src, vol }: { from: number; src: string; vol: number }) => (
+  <Sequence from={from}>
+    <Audio src={staticFile(src)} volume={vol} />
+  </Sequence>
+);
+
 export const AudioDeuxnous: React.FC = () => (
   <>
+    {/* Nappe Amapiano continue */}
     <Audio src={staticFile("sfx/amapiano.wav")} volume={0.22} />
 
     {/* S1 Hook (0–150) */}
-    <Sequence from={0}>
-      <Audio src={staticFile("sfx/whoosh.wav")} volume={0.45} />
-    </Sequence>
-    <Sequence from={12}><Audio src={staticFile("sfx/pop2.wav")} volume={0.5} /></Sequence>
-    <Sequence from={24}><Audio src={staticFile("sfx/pop2.wav")} volume={0.5} /></Sequence>
-    <Sequence from={36}><Audio src={staticFile("sfx/pop2.wav")} volume={0.5} /></Sequence>
-    <Sequence from={48}><Audio src={staticFile("sfx/pop2.wav")} volume={0.5} /></Sequence>
-    <Sequence from={60}><Audio src={staticFile("sfx/pop2.wav")} volume={0.5} /></Sequence>
-    <Sequence from={80}><Audio src={staticFile("sfx/swoosh.wav")} volume={0.6} /></Sequence>
-    <Sequence from={104}><Audio src={staticFile("sfx/success.wav")} volume={0.55} /></Sequence>
-    <Sequence from={110}><Audio src={staticFile("sfx/chime.wav")} volume={0.4} /></Sequence>
+    <Frame from={0} src="sfx/whoosh.wav" vol={0.45} />
+    <Frame from={12} src="sfx/pop2.wav" vol={0.5} />
+    <Frame from={24} src="sfx/pop2.wav" vol={0.5} />
+    <Frame from={36} src="sfx/pop2.wav" vol={0.5} />
+    <Frame from={48} src="sfx/pop2.wav" vol={0.5} />
+    <Frame from={60} src="sfx/pop2.wav" vol={0.5} />
+    <Frame from={80} src="sfx/swoosh.wav" vol={0.6} />
+    <Frame from={104} src="sfx/success.wav" vol={0.55} />
+    <Frame from={110} src="sfx/chime.wav" vol={0.4} />
 
-    {/* S2 Création (150–360) */}
-    <Sequence from={150}><Audio src={staticFile("sfx/swoosh.wav")} volume={0.45} /></Sequence>
-    {/* typing "Jean" : 165, 175, 185, 192 */}
-    <Sequence from={165}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={172}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={180}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={187}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    {/* typing "& Sarah" : 205, 213, 221, 228, 234, 240, 244 */}
-    <Sequence from={205}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={212}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={219}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={226}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={232}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={237}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
-    <Sequence from={240}><Audio src={staticFile("sfx/click.wav")} volume={0.6} /></Sequence>
-    <Sequence from={252}><Audio src={staticFile("sfx/chime.wav")} volume={0.55} /></Sequence>
-    <Sequence from={258}><Audio src={staticFile("sfx/success.wav")} volume={0.5} /></Sequence>
-    <Sequence from={295}><Audio src={staticFile("sfx/pop2.wav")} volume={0.5} /></Sequence>
-    <Sequence from={310}><Audio src={staticFile("sfx/pop2.wav")} volume={0.5} /></Sequence>
+    {/* S2 Création (150–330) — typing + clic + chime */}
+    <Frame from={150} src="sfx/swoosh.wav" vol={0.45} />
+    <Frame from={165} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={172} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={180} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={187} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={205} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={212} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={219} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={226} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={232} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={237} src="sfx/tick.wav" vol={0.45} />
+    <Frame from={240} src="sfx/click.wav" vol={0.6} />
+    <Frame from={252} src="sfx/chime.wav" vol={0.55} />
+    <Frame from={258} src="sfx/success.wav" vol={0.5} />
+    <Frame from={295} src="sfx/pop2.wav" vol={0.5} />
+    <Frame from={310} src="sfx/pop2.wav" vol={0.5} />
 
-    {/* S3 RSVP (360–600) */}
-    <Sequence from={360}><Audio src={staticFile("sfx/swoosh.wav")} volume={0.5} /></Sequence>
-    <Sequence from={392}><Audio src={staticFile("sfx/click.wav")} volume={0.6} /></Sequence>
-    <Sequence from={410}><Audio src={staticFile("sfx/swoosh.wav")} volume={0.55} /></Sequence>
-    {/* typing numéro : ~10 ticks */}
+    {/* S3 RSVP (330–540) — bulle + typing numéro + billet */}
+    <Frame from={330} src="sfx/swoosh.wav" vol={0.5} />
+    <Frame from={362} src="sfx/click.wav" vol={0.6} />
+    <Frame from={380} src="sfx/swoosh.wav" vol={0.55} />
     {Array.from({ length: 12 }).map((_, i) => (
-      <Sequence key={`num-${i}`} from={472 + i * 4}><Audio src={staticFile("sfx/tick.wav")} volume={0.45} /></Sequence>
+      <Frame key={`num-${i}`} from={442 + i * 4} src="sfx/tick.wav" vol={0.45} />
     ))}
-    <Sequence from={524}><Audio src={staticFile("sfx/click.wav")} volume={0.65} /></Sequence>
-    <Sequence from={550}><Audio src={staticFile("sfx/success.wav")} volume={0.6} /></Sequence>
-    <Sequence from={556}><Audio src={staticFile("sfx/chime.wav")} volume={0.45} /></Sequence>
+    <Frame from={494} src="sfx/click.wav" vol={0.65} />
+    <Frame from={520} src="sfx/success.wav" vol={0.6} />
+    <Frame from={526} src="sfx/chime.wav" vol={0.45} />
 
-    {/* S4 Jour J (600–1050) — donations + polaroids + horloge */}
-    <Sequence from={600}><Audio src={staticFile("sfx/swoosh.wav")} volume={0.5} /></Sequence>
+    {/* S4 Jour J (540–840) — donations + polaroids + horloge */}
+    <Frame from={540} src="sfx/swoosh.wav" vol={0.5} />
     {Array.from({ length: 6 }).map((_, i) => (
-      <Sequence key={`cash-${i}`} from={630 + i * 40}>
-        <Audio src={staticFile("sfx/cash.wav")} volume={0.55} />
-      </Sequence>
+      <Frame key={`cash-${i}`} from={570 + i * 40} src="sfx/cash.wav" vol={0.55} />
     ))}
-    {/* polaroids shutter */}
     {Array.from({ length: 7 }).map((_, i) => (
-      <Sequence key={`shut-${i}`} from={680 + i * 50}>
-        <Audio src={staticFile("sfx/shutter.wav")} volume={0.5} />
-      </Sequence>
+      <Frame key={`shut-${i}`} from={620 + i * 40} src="sfx/shutter.wav" vol={0.5} />
     ))}
-    <Sequence from={780}><Audio src={staticFile("sfx/chime.wav")} volume={0.5} /></Sequence>
-    <Sequence from={1000}><Audio src={staticFile("sfx/success.wav")} volume={0.45} /></Sequence>
+    <Frame from={720} src="sfx/chime.wav" vol={0.5} />
+    <Frame from={820} src="sfx/success.wav" vol={0.45} />
 
-    {/* S5 Outro (1050–1200) */}
-    <Sequence from={1050}><Audio src={staticFile("sfx/swoosh.wav")} volume={0.5} /></Sequence>
-    <Sequence from={1075}><Audio src={staticFile("sfx/success.wav")} volume={0.55} /></Sequence>
-    <Sequence from={1080}><Audio src={staticFile("sfx/chime.wav")} volume={0.4} /></Sequence>
-    {Array.from({ length: 6 }).map((_, i) => (
-      <Sequence key={`conf-${i}`} from={1085 + i * 8}>
-        <Audio src={staticFile("sfx/pop2.wav")} volume={0.4} />
-      </Sequence>
+    {/* S5 Album Live (840–1020) — chaque polaroid qui arrive = shutter */}
+    <Frame from={840} src="sfx/swoosh.wav" vol={0.5} />
+    <Frame from={870} src="sfx/chime.wav" vol={0.5} />
+    {Array.from({ length: 12 }).map((_, i) => (
+      <Frame key={`photo-${i}`} from={875 + i * 12} src="sfx/shutter.wav" vol={0.45} />
     ))}
-    <Sequence from={1110}><Audio src={staticFile("sfx/pop2.wav")} volume={0.55} /></Sequence>
-    <Sequence from={1140}><Audio src={staticFile("sfx/click.wav")} volume={0.6} /></Sequence>
-    <Sequence from={1180}><Audio src={staticFile("sfx/success.wav")} volume={0.6} /></Sequence>
+    <Frame from={1000} src="sfx/success.wav" vol={0.5} />
+
+    {/* S6 Outro (1020–1200) — confettis + CTA */}
+    <Frame from={1020} src="sfx/swoosh.wav" vol={0.5} />
+    <Frame from={1045} src="sfx/success.wav" vol={0.55} />
+    <Frame from={1050} src="sfx/chime.wav" vol={0.4} />
+    {Array.from({ length: 6 }).map((_, i) => (
+      <Frame key={`conf-${i}`} from={1055 + i * 8} src="sfx/pop2.wav" vol={0.4} />
+    ))}
+    <Frame from={1080} src="sfx/pop2.wav" vol={0.55} />
+    <Frame from={1110} src="sfx/click.wav" vol={0.6} />
+    <Frame from={1180} src="sfx/success.wav" vol={0.6} />
   </>
 );

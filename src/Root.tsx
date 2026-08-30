@@ -14,7 +14,8 @@ import { S1Hook } from "./deuxnous/S1Hook";
 import { S2Create } from "./deuxnous/S2Create";
 import { S3RSVP } from "./deuxnous/S3RSVP";
 import { S4JourJ } from "./deuxnous/S4JourJ";
-import { S5Outro } from "./deuxnous/S5Outro";
+import { S5Album } from "./deuxnous/S5Album";
+import { S5Outro as S6Outro } from "./deuxnous/S5Outro";
 import { AudioDeuxnous } from "./deuxnous/AudioDeuxnous";
 import { theme as dnTheme } from "./deuxnous/theme";
 
@@ -110,14 +111,22 @@ const EndCard: React.FC = () => {
 
 const DEUXNOUS_FPS = 30;
 const DEUXNOUS_FRAMES = 40 * DEUXNOUS_FPS; // 1200
+// Timeline (frames absolues @ 30 fps) :
+//   S1 Hook      : 0    – 150  (5s)
+//   S2 Création  : 150  – 330  (6s)
+//   S3 RSVP      : 330  – 540  (7s)
+//   S4 Jour J    : 540  – 840  (10s)
+//   S5 Album     : 840  – 1020 (6s)
+//   S6 Outro     : 1020 – 1200 (6s)
 
 const Deuxnous: React.FC = () => (
   <AbsoluteFill style={{ background: dnTheme.colors.bg }}>
     <Sequence from={0} durationInFrames={150}><S1Hook /></Sequence>
-    <Sequence from={150} durationInFrames={210}><S2Create /></Sequence>
-    <Sequence from={360} durationInFrames={240}><S3RSVP /></Sequence>
-    <Sequence from={600} durationInFrames={450}><S4JourJ /></Sequence>
-    <Sequence from={1050} durationInFrames={150}><S5Outro /></Sequence>
+    <Sequence from={150} durationInFrames={180}><S2Create /></Sequence>
+    <Sequence from={330} durationInFrames={210}><S3RSVP /></Sequence>
+    <Sequence from={540} durationInFrames={300}><S4JourJ /></Sequence>
+    <Sequence from={840} durationInFrames={180}><S5Album /></Sequence>
+    <Sequence from={1020} durationInFrames={180}><S6Outro /></Sequence>
     <AudioDeuxnous />
   </AbsoluteFill>
 );

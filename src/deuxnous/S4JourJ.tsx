@@ -326,12 +326,14 @@ export const S4JourJ: React.FC = () => {
         </div>
       </div>
 
-      {/* Tagline bas */}
+      {/* Tagline bas — à droite pour ne pas chevaucher le téléphone cagnotte */}
       <div
         style={{
           position: "absolute",
-          left: 80,
+          right: 100,
           bottom: 60,
+          maxWidth: 720,
+          textAlign: "right",
           opacity: spring({ frame: frame - 220, fps, config: theme.spring.snap }),
           transform: `translateY(${interpolate(spring({ frame: frame - 220, fps, config: theme.spring.snap }), [0, 1], [30, 0])}px)`,
         }}
